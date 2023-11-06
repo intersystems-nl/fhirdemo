@@ -10,12 +10,14 @@ XData ProductionDefinition
   </Item>
   <Item Name="StoreObservations" Category="" ClassName="Luci.BP.StoreObservations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
-    <Setting Target="Host" Name="Target">Dummy</Setting>
+    <Setting Target="Host" Name="Target">LocalFhirRepo</Setting>
   </Item>
   <Item Name="HS.Util.Trace.Operations" Category="" ClassName="HS.Util.Trace.Operations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="Dummy" Category="" ClassName="HS.FHIRServer.Interop.DummyOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
+  </Item>
+  <Item Name="LocalFhirRepo" Category="" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

@@ -115,7 +115,7 @@ ClassMethod PupulateInteropRequest(target As HS.FHIRServer.Interop.Request, quic
 {
 	#; set target.Request.TimestampUTC // is autofilled
 	#; set target.Request = ##class(HS.FHIRServer.API.Data.Request).%New()
-	set target.Request.SessionApplication = "/fhir/r4b"
+	set target.Request.SessionApplication = "/fhir/r4"
 	set target.Request.RequestMethod = "POST"
 	set target.Request.RequestPath = ""
 	set target.Request.IsRecursive = 0
