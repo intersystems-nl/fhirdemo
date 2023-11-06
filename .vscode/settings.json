@@ -1,0 +1,11 @@
+{
+    "objectscript.conn": {
+        "server": "local-docker-52773",
+        "ns": "LUCI",
+        "active": true,
+        "links": {
+            "Webterminal": "${serverUrl}/terminal/",
+            "swagger": "${serverUrl}/swagger-ui/index.html?url=http://localhost:52773/luciapi/v1/doc"
+        }
+    }
+}

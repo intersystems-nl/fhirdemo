@@ -2,7 +2,7 @@
 Class Install.Install
 {
 
-Parameter Namespace As String = "FHIR";
+Parameter Namespace As String = "LUCI";
 
 /// Create FHIR namespace
 ClassMethod CreateFHIRNameSpace(namespace As %String = {..#Namespace})
@@ -47,6 +47,7 @@ XData Manifest [ XMLNamespace = INSTALLER ]
 			</Invoke>
 		</Namespace>
 	</If>
+
 </Manifest>
 }
 
@@ -90,6 +91,25 @@ ClassMethod setup(ByRef pVars, pLogLevel As %Integer = 3, pInstaller As %Install
 {
  #; Let our XGL document generate code for this method.
  return ##class(%Installer.Manifest).%Generate(%compiledclass, %code, "Manifest")
+}
+
+ClassMethod CreateRestApp(Url As %String, Namespace As %String, DispatchClass As %String, Grant As %String) As %Status
+{
+	New $Namespace
+	Set $Namespace = "%SYS"
+
+	Set Prop("NameSpace") = Namespace
+	Set Prop("DispatchClass") = DispatchClass
+	if Grant '="" {
+        Set Prop("MatchRoles") = ":"_Grant
+    }
+
+	Set Prop("AutheEnabled") = $$$AutheCache
+
+	Set sc = ##class(Security.Applications).Create(Url, .Prop)
+	If 'sc Quit sc
+
+	Quit $$$OK
 }
 
 }

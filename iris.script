@@ -1,14 +1,21 @@
     zn "USER"
     set sc = $System.OBJ.Load("/home/irisowner/irisdev/src/Install/Install.cls", "ckd")
-    
-	if 'sc
-	{
+	if 'sc {
 		do $System.Status.DisplayError(sc)
 	}
 
+    // Install swagger-ui and webterminal tools
+    zpm "install swagger-ui"
+    zpm "install webterminal"
+
+    // create rest web application and FHIR server
+    do ##class(Install.Install).CreateRestApp("/luciapi/v1","LUCI","Luci.Rest.disp","") 
     do ##class(Install.Install).CreateFHIRNameSpace()
 
     // Now load package 
-    zn "FHIR"
-    zpm "load /home/irisowner/irisdev/ -v":1:1
+    zn "LUCI"
+
+    zpm "load /home/irisowner/irisdev/ -v":1:1  
+
+
     halt

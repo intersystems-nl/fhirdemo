@@ -1,0 +1,90 @@
+{
+  "observationId": "1",
+  "code": [
+    {
+      "system": "http:\/\/snomed.info\/sct",
+      "code": "363787002",
+      "display": "Observable entity"
+    },
+    {
+      "code": "8480-6",
+      "system": "http://loinc.org",
+      "display": "Systolic blood pressure"
+    },
+    {
+      "code": "8462-4",
+      "system": "http://loinc.org",
+      "display": "Diastolic blood pressure"
+    },
+    {
+      "code": "8867-4",
+      "system": "http://loinc.org",
+      "display": "Heart rate"
+    }
+  ],
+  "dataAbsentReason": null,
+  "components": [
+    {
+      "value": "78",
+      "code": [
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_id|5cde77a0-edef-4c23-90e3-17ec98d95905",
+          "display": "Unit Test Item"
+        },
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_version|f6c22232-7d69-431e-965a-0d52620b31cf",
+          "display": "Unit Test Item"
+        },
+        {
+          "code": "8867-4",
+          "system": "http://loinc.org",
+          "display": "Heart rate"
+        }
+      ]
+    },
+    {
+      "value": "80.0",
+      "code": [
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_id|d345b7bb-8d52-4e3a-bf64-460f72515508",
+          "display": "Unit Test Item"
+        },
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_version|938a29ec-3f0c-45ba-a7be-e5a72413baf3",
+          "display": "Unit Test Item"
+        },
+        {
+          "code": "8462-4",
+          "system": "http://loinc.org",
+          "display": "Diastolic blood pressure"
+        }
+      ]
+    },
+    {
+      "value": "120.0",
+      "code": [
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_id|ab27be58-4b04-40be-b270-984a93815eeb",
+          "display": "Unit Test Item"
+        },
+        {
+          "system": "urn:oid:2.16.840.1.113883.2.4.3.135",
+          "code": "item_version|0c870310-6707-447a-9e12-2895a796cdd1",
+          "display": "Unit Test Item"
+        },
+        {
+          "code": "8480-6",
+          "system": "http://loinc.org",
+          "display": "Systolic blood pressure"
+        }
+      ]
+    }
+  ],
+  "note": null,
+  "observedAt": "2021-05-07T11:40:01+02:00"
+}

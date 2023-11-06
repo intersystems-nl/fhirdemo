@@ -1,0 +1,143 @@
+{
+  "resourceType": "Bundle",
+  "id": "004e0db1-74aa-4d07-8e4b-f3c276668a1d",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/StructureDefinition/Bundle"
+    ]
+  },
+  "type": "transaction",
+  "total": 1,
+  "entry": [
+    {
+      "fullUrl": "https://acceptatie-medmij.zorgplatform.online/Observation/056b85ec-d19c-4bde-929a-eb5212fdd0b8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "056b85ec-d19c-4bde-929a-eb5212fdd0b8",
+        "meta": {
+          "profile": [
+            "http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h3>Observation resource for blood pressure:</h3><ul><li><p><strong>Patient:</strong> &#x27;Test Gestructureerd Vipp&#x27;</p></li><li><p><strong>Systolic blood pressure:</strong> &#x27;120 mm[Hg]&#x27;</p></li><li><p><strong>Diastolic blood pressure:</strong> &#x27;80 mm[Hg]&#x27;</p></li><li><p><strong>Average blood pressure:</strong> &#x27;92 mm[Hg]&#x27;</p></li><li><p><strong>Effective:</strong> &#x27;12-11- 2019 09:00&#x2B;0100&#x27;</p></li><li><p><strong>Method:</strong> &#x27;Invasive&#x27;</p></li><li><p><strong>Status:</strong> &#x27;Registered&#x27;</p></li><li><p><strong>Code:</strong> &#x27;85354-9&#x27;</p></li></ul></div>"
+        },
+        "status": "registered",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure panel with all children optional"
+            }
+          ],
+          "text": "Blood pressure panel with all children optional"
+        },
+        "subject": {
+          "reference": "Patient/38E690760B1594BEFF85581F6EC27B3C74CD88B9C643CAE8A2F71A69D5E46A2B",
+          "display": "Test Gestructureerd Vipp"
+        },
+        "effectiveDateTime": "2019-11-12T09:00:00+01:00",
+        "method": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "10179008",
+              "display": "Invasive"
+            }
+          ],
+          "text": "Invasief"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure"
+                }
+              ],
+              "text": "Systolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 120,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure"
+                }
+              ],
+              "text": "Diastolic blood pressure"
+            },
+            "valueQuantity": {
+              "value": 80,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "6797001",
+                  "display": "Mean blood pressure"
+                }
+              ],
+              "text": "Mean blood pressure"
+            },
+            "valueQuantity": {
+              "value": 92,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8478-0",
+                  "display": "Mean blood pressure"
+                }
+              ],
+              "text": "Mean blood pressure"
+            },
+            "valueQuantity": {
+              "value": 92,
+              "unit": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}
