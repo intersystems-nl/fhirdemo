@@ -18,6 +18,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
   </Item>
   <Item Name="LocalFhirRepo" Category="" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
   </Item>
 </Production>
 }

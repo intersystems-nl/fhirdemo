@@ -58,7 +58,12 @@ ClassMethod CreatePatientResource(input As %Library.DynamicObject, Output FhirOu
 	set resource.resourceType="Patient"
 	set resource.id = $ZCONVERT($System.Util.CreateGUID(), "L")
 
-	
+	set resource.meta = {"profile":  ["http://fhir.nl/fhir/StructureDefinition/nl-core-patient"]}
+  do resource.%Set("active",1,"boolean")
+
+  set resource.name = ..GetName(input)
+  set resource.telecom = ..GetTelecom(input)
+  set resource.address = ..GetAddress(input)
 	
 	set entry.resource = resource
 	set entry.request = {"method": "POST","url": "Patient"}
@@ -134,6 +139,86 @@ ClassMethod GetFHIRPatientFromPID(pid As EnsLib.HL7.Segment, Output conditionalq
 	set observation = { "resourceType": "Observation" }
 
 	return observation
+}
+
+ClassMethod GetName(input As %Library.DynamicObject) As %Library.DynamicObject
+{
+  set name =[]
+  set n1 = {}
+
+  set n1.use="official"
+  set n1.family = input.%Get("full_name")
+  if input.%Get("first_name") '="" {
+
+    set n1.given=[]
+    do n1.given.%Push(input.%Get("first_name"))
+    set n1."_given"=[]
+    set ext = []
+    set ex1 = {"url":"http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier"}
+    set ex1.valueCode = "CL"
+    do ext.%Push(ex1)
+    set givenext = {}
+    set givenext.extension = []
+    do givenext.extension.%Push(ex1)
+
+    do n1."_given".%Push(givenext)
+  }
+  do name.%Push(n1)
+
+  return name
+}
+
+ClassMethod GetTelecom(input As %Library.DynamicObject) As %Library.DynamicObject
+{
+  set telecom =[]
+  set t1={}
+  set t1.value = input.%Get("phoneNumber").%Get("number")
+  set t1.system = "phone"
+  set t1.use = "home"
+  do telecom.%Push(t1)
+
+
+  return telecom
+}
+
+ClassMethod GetAddress(input As %Library.DynamicObject) As %Library.DynamicObject
+{
+  set address =[]
+  set a1 = {}
+  set a1.use = "home"
+  set a1.type = "both"
+  
+  
+  set a1.extension = []
+
+  set line = ""
+  if input.%Get("address").%Get("street") '=""{
+    set ex1 = {"url":"http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName"}
+    set ex1.valueString = input.%Get("address").%Get("street")
+    do a1.extension.%Push(ex1)
+    set line = ex1.valuestring
+  }
+  if input.%Get("address").%Get("houseNumber")'="" {
+    set ex2 = {"url":"http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber"}
+    set ex2.valueString = input.%Get("address").%Get("houseNumber")
+    do a1.extension.%Push(ex2)
+    set line = line _" " _ex2.valuestring
+  }
+  if input.%Get("address").%Get("houseNumberSuffix") '=""{
+    set ex3 = {"url":"http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-buildingNumberSuffix"}
+    set ex3.valueString = input.%Get("address").%Get("houseNumberSuffix")
+    do a1.extension.%Push(ex3)
+    set line = line _" " _ex3.valuestring
+  }
+  if line '=""{
+    set a1.line=[]
+    do a1.line.%Push(line)
+  }
+  set a1.city = input.%Get("address").%Get("city")
+  set a1.postalCode = input.%Get("address").%Get("postalCode")
+  set a1.country = input.%Get("address").%Get("country")
+  do address.%Push(a1)
+  return address
 }
 
 XData SampleInput [ MimeType = application/json ]
