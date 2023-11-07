@@ -18,10 +18,11 @@ Method OnRequest(pRequest As Luci.Messages.StoreObservationRequest, Output respo
 	
 		set sc = ##class(Luci.DTL.ObservationToFHIR).Transform(pRequest,.tResponse)
 		if sc {
+			$$$HSTRACE("Message after DTL","DTL",tResponse)
 			set sc = ..SendRequestAsync(..Target,tResponse)
 		}
-		$$$HSTRACE("Message after DTL","DTL",tResponse)
-		set response = ##class(Luci.Messages.ApiResponse).CreateResponse(200, "Successfully processed observations")
+
+		set response = ##class(Luci.Messages.ApiResponse).CreateResponse(200, )
 		
 	}
 	catch ex
@@ -51,8 +52,11 @@ Method TransformAndSendRequest(pRequest As Luci.Messages.StoreObservationRequest
 /// Handle a 'Response'
 Method OnResponse(request As %Library.Persistent, ByRef response As %Library.Persistent, callrequest As %Library.Persistent, callresponse As %Library.Persistent, pCompletionKey As %String) As %Status
 {
-	// Subclass responsibility
-	return $$$OK
+
+
+		set resp = ##class(ISCNL.Utilities.QuickStreamHelper).ReadQuickstream(callresponse.QuickStreamId).%ToJSON()
+		set response = ##class(Luci.Messages.ApiResponse).CreateResponse(200, resp)
+		return $$$OK
 }
 
 Storage Default
