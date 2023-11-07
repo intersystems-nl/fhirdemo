@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "9416b42b-bfb8-49e7-8d45-d120f5cfaa70",
+		"name": "Luci FHIR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5343265",
+		"_collection_link": "https://intersystemsnl.postman.co/workspace/MBox~2f5e9088-15e4-4957-99ab-dbcc027a065b/collection/5343265-9416b42b-bfb8-49e7-8d45-d120f5cfaa70?action=share&source=collection_link&creator=5343265"
+	},
+	"item": [
+		{
+			"name": "Get Fhir resources",
+			"item": [
+				{
+					"name": "Get Patients",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "SYS",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "_system",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:52773/fhir/r4/Patient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "52773",
+							"path": [
+								"fhir",
+								"r4",
+								"Patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Observations",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "SYS",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "_system",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:52773/fhir/r4/Observation?_include=Observation:subject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "52773",
+							"path": [
+								"fhir",
+								"r4",
+								"Observation"
+							],
+							"query": [
+								{
+									"key": "_include",
+									"value": "Observation:subject"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

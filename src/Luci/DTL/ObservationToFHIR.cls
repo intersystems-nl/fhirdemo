@@ -56,7 +56,7 @@ ClassMethod CreatePatientResource(input As %Library.DynamicObject, Output FhirOu
 	set entry.fullURL ="urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0a"
 	set resource = {}
 	set resource.resourceType="Patient"
-	set resource.id = $ZCONVERT($System.Util.CreateGUID(), "L")
+	set resource.id = input.uuid //$ZCONVERT($System.Util.CreateGUID(), "L")
 
 	set resource.meta = {"profile":  ["http://fhir.nl/fhir/StructureDefinition/nl-core-patient"]}
   do resource.%Set("active",1,"boolean")
@@ -80,7 +80,7 @@ ClassMethod CreateObservationResource(input As %Library.DynamicObject, FhirOutpu
 	set entry.fullURL ="urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0b"
 	set resource = {}
 	set resource.resourceType = "Observation"
-	set resource.id = $ZCONVERT($System.Util.CreateGUID(), "L")
+	set resource.id = input.observationId
 	set resource.meta = {"profile": ["http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"]}
 	set resource.status="registered"	
 
