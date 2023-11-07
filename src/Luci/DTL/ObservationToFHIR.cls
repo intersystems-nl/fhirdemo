@@ -81,7 +81,7 @@ ClassMethod CreateObservationResource(input As %Library.DynamicObject, FhirOutpu
 	set resource = {}
 	set resource.resourceType = "Observation"
 	set resource.id = $ZCONVERT($System.Util.CreateGUID(), "L")
-	//set resource.meta = {"profile": ["http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"]}
+	set resource.meta = {"profile": ["http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"]}
 	set resource.status="registered"	
 
 	set subject={}
@@ -97,7 +97,8 @@ ClassMethod CreateObservationResource(input As %Library.DynamicObject, FhirOutpu
 	//set resource.components=[]
 
   set resource.component = ..GetComponents(input)
-	set entry.resource = resource
+	set resource.effectiveDateTime = input.%Get("observedAt")
+  set entry.resource = resource
 	set entry.request = {"method": "PUT"}
   set entry.request.url = "Observation/"_resource.id
 
