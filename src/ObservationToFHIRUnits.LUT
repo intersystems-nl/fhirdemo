@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="ObservationToFHIRUnits" key="8462-4">Diastolic blood pressure^mm[Hg]^mm[Hg]</entry>
+<entry table="ObservationToFHIRUnits" key="8480-6">Systolic blood pressure^mm[Hg]^mm[Hg]</entry>
+<entry table="ObservationToFHIRUnits" key="8867-4">Heart rate^{beats}/min^{beats}/min</entry>
+</lookupTable>

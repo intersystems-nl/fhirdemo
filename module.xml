@@ -13,6 +13,7 @@
       <Resource Name="Luci.PKG"/>
       <Resource Name="ISCNL.PKG"/>
       <Resource Name="MyFHIRServer.PKG"/>
+      <Resouce Name = "ObservationToFHIRUnits.LUT"/>
 			<Invokes>
 				<Invoke Class="Luci.Install.Install" Method="SetupProduction" Phase="Activate" When="Before"/>
 				<Invoke Class="Install.Install" Method="SetupFHIRServer" Phase="Activate" When="After"/>

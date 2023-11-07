@@ -66,7 +66,8 @@ ClassMethod CreatePatientResource(input As %Library.DynamicObject, Output FhirOu
   set resource.address = ..GetAddress(input)
 	
 	set entry.resource = resource
-	set entry.request = {"method": "POST","url": "Patient"}
+	set entry.request = {"method": "PUT","url": "Patient"}
+  set entry.request.url = "Patient/"_resource.id
 	do FhirOutput.entry.%Push(entry)
 
 	return $$$OK
@@ -80,12 +81,12 @@ ClassMethod CreateObservationResource(input As %Library.DynamicObject, FhirOutpu
 	set resource = {}
 	set resource.resourceType = "Observation"
 	set resource.id = $ZCONVERT($System.Util.CreateGUID(), "L")
-	set resource.meta = {"profile": ["http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"]}
+	//set resource.meta = {"profile": ["http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"]}
 	set resource.status="registered"	
 
 	set subject={}
 	set subject.reference = "Patient/"_FhirOutput.entry.%Get(0).resource.id
-	set subject.display = "blabla"
+	set subject.display = FhirOutput.entry.%Get(0).resource.name.%Get(0).family
 	set resource.subject = subject
 	set resource.category = [{"coding":  [{"system": "http://hl7.org/fhir/observation-category","code": "vital-signs","display": "Vital Signs" }]}]
 	set resource.code = {"coding": [{"system": "http://loinc.org","code": "85354-9","display": "Blood pressure panel with all children optional"}], "text": "Blood pressure panel with all children optional"}
@@ -93,14 +94,12 @@ ClassMethod CreateObservationResource(input As %Library.DynamicObject, FhirOutpu
 	//set resource.effectiveDateTime = ""
 	set resource.method = {"coding": [{"system": "http://snomed.info/sct","code": "10179008","display": "Invasive"}],"text": "Invasief"}
 
-
-	
-
 	//set resource.components=[]
 
-
+  set resource.component = ..GetComponents(input)
 	set entry.resource = resource
-	set entry.request = {"method": "POST","url": "Observation"}
+	set entry.request = {"method": "PUT"}
+  set entry.request.url = "Observation/"_resource.id
 
 	do FhirOutput.entry.%Push(entry)
 }
@@ -124,7 +123,7 @@ ClassMethod PupulateInteropRequest(target As HS.FHIRServer.Interop.Request, quic
 	set target.Request.RequestMethod = "POST"
 	set target.Request.RequestPath = ""
 	set target.Request.IsRecursive = 0
-	set target.Request.BaseURL = "https://localhost:52773/fhir/r4b/"
+	set target.Request.BaseURL = "https://localhost:52773/fhir/r4/"
 	set target.Request.RequestFormatCode = "JSON"
 	set target.Request.ResponseFormatCode = "JSON"
 	set target.QuickStreamId = quickstream.%Id()
@@ -137,6 +136,7 @@ ClassMethod PupulateInteropRequest(target As HS.FHIRServer.Interop.Request, quic
 ClassMethod GetFHIRPatientFromPID(pid As EnsLib.HL7.Segment, Output conditionalquery As %String) As %Library.DynamicObject
 {
 	set observation = { "resourceType": "Observation" }
+
 
 	return observation
 }
@@ -219,6 +219,47 @@ ClassMethod GetAddress(input As %Library.DynamicObject) As %Library.DynamicObjec
   set a1.country = input.%Get("address").%Get("country")
   do address.%Push(a1)
   return address
+}
+
+ClassMethod GetComponents(input As %Library.DynamicObject) As %Library.DynamicObject
+{
+  
+  set component =[]
+  #dim iterator As %Iterator.Object = input.components.%GetIterator()
+  while iterator.%GetNext(.key, .value, .type)
+  {
+  
+    set c1 ={"code":{"coding":[]}}
+    set coding = value
+
+
+    #dim iterator2 As %Iterator.Object = value.code.%GetIterator()
+    while iterator2.%GetNext(.key2, .value2, .type2)
+    { 
+      if value2.system = "http://loinc.org"
+      {
+        set coding = value2
+        quit
+      }
+
+    }
+
+    set q1 = {}
+    set q1.value = value.value+0
+    set fhirunit = ##class(Ens.Util.FunctionSet).Lookup("ObservationToFHIRUnits", coding.code ,"unknown^unknown^unknown",1)
+    set q1.unit = $Piece(fhirunit,"^",2)
+    set q1.system = "http://unitsofmeasure.org"
+    set q1.code = $Piece(fhirunit,"^",3)
+    set c1.valueQuantity = q1
+
+    do c1.code.coding.%Push(coding)
+    do component.%Push(c1)
+    
+
+  }
+
+ 
+  return component
 }
 
 XData SampleInput [ MimeType = application/json ]
